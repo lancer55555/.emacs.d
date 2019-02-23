@@ -87,3 +87,20 @@
    (column-number-mode t) ;; показать номер столбца в mode-line
    (setq linum-format " %d") ;; задаем формат нумерации строк
    #+END_SRC
+* Set UTF-8 encoding
+  #+BEGIN_SRC emacs-lisp
+  (setq locale-coding-system 'utf-8)
+  (set-terminal-coding-system 'utf-8)
+  (set-keyboard-coding-system 'utf-8)
+  (set-selection-coding-system 'utf-8)
+  (prefer-coding-system 'utf-8)
+  #+END_SRC
+* Show-paren-mode and electric-mode
+  #+BEGIN_SRC emacs-lisp
+  (show-paren-mode t) ;; включить выделение выражений между {},[],()
+  (setq show-paren-style 'expression) ;; выделить цветом выражения между {},[],()
+  (electric-pair-mode    1) ;; автозакрытие {},[],() с переводом курсора внутрь скобок
+  (setq require-final-newline    t) ;; добавить новую пустую строку в конец файла при сохранении
+  (setq next-line-add-newlines nil) ;; не добавлять новую строку в конец при смещении 
+						            ;; курсора  стрелками
+  #+END_SRC
