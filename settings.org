@@ -132,3 +132,9 @@
     (org-babel-load-file (expand-file-name "~/.emacs.d/settings.org")))
   (global-set-key (kbd "C-c r") 'config-reload)
 #+END_SRC
+* rainbow
+#+BEGIN_SRC emacs-lisp
+  (use-package rainbow-mode
+    :ensure t
+    :init (rainbow-mode 1))
+#+END_SRC
