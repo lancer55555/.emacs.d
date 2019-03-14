@@ -117,3 +117,18 @@
     :bind
     ("M-s" . avy-goto-char))
 #+END_SRC
+* config edit/reload
+** edit
+#+BEGIN_SRC emacs-lisp
+  (defun config-visit ()
+    (interactive)
+    (find-file "~/.emacs.d/settings.org"))
+  (global-set-key (kbd "C-c e") 'config-visit)
+#+END_SRC
+** reload
+#+BEGIN_SRC emacs-lisp
+  (defun config-reload ()
+    (interactive)
+    (org-babel-load-file (expand-file-name "~/.emacs.d/settings.org")))
+  (global-set-key (kbd "C-c r") 'config-reload)
+#+END_SRC
