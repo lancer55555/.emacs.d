@@ -1,11 +1,5 @@
-*.html
-*.eld
-*.dat
-*ido*
-*.pdf
-*.tex
-
-settings.el
+elpa/*
+auto-save-list/*
+*settings.el
+*ido.last
 smex-items
-auto-save-list
-elpa
