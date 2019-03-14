@@ -1,6 +1,11 @@
 #+STARTUP: overview 
 #+PROPERTY: header-args :comments yes :results silent
 * Minor settings
+** show lines and columns on the modeline
+#+BEGIN_SRC emacs-lisp
+  (line-number-mode 1)
+  (column-number-mode 1)
+#+END_SRC
 ** no gui elements 
 #+BEGIN_SRC emacs-lisp
   (tool-bar-mode -1)
@@ -127,6 +132,20 @@
   (global-set-key (kbd "C-x C-b") 'ido-switch-buffer)
 #+END_SRC
 * buffers
+** kill all buffers
+#+BEGIN_SRC emacs-lisp
+  (defun kill-all-buffers ()
+    (interactive)
+    (mapc 'kill-buffer (buffer-list)))
+  (global-set-key (kbd "C-M-s-k") 'kill-all-buffers)
+#+END_SRC
+** always kill current buffer
+#+BEGIN_SRC emacs-lisp
+  (defun kill-curr-buffer ()
+    (interactive)
+    (kill-buffer (current-buffer)))
+  (global-set-key (kbd "C-x k") 'kill-curr-buffer)
+#+END_SRC
 ** enable ibuffer
 #+BEGIN_SRC emacs-lisp
   (global-set-key (kbd "C-x b") 'ibuffer)
@@ -143,13 +162,24 @@
     ("M-s" . avy-goto-char))
 #+END_SRC
 * convenient function
-** kill-whole-word
+** kill-whole-word 
 #+BEGIN_SRC emacs-lisp
   (defun kill-whole-word ()
     (interactive)
     (backward-word)
     (kill-word 1))
   (global-set-key (kbd "C-c w w") 'kill-whole-word)
+#+END_SRC
+** copy-whole-line
+#+BEGIN_SRC emacs-lisp
+  (defun copy-whole-line ()
+    (interactive)
+    (save-excursion
+      (kill-new
+       (buffer-substring
+	(point-at-bol)
+	(point-at-eol)))))
+  (global-set-key (kbd "C-c w l") 'copy-whole-line)
 #+END_SRC
 * config edit/reload
 ** edit
