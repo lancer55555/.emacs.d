@@ -18,38 +18,10 @@
   (package-refresh-contents)
   (package-install 'spacemacs-theme))
 
-(defalias 'yes-or-no-p 'y-or-n-p)
-
 (org-babel-load-file (expand-file-name "~/.emacs.d/settings.org"))
 
 (global-set-key (kbd "<s-return>") 'ansi-term)
 
-(setq scroll-conservatively 100)
-
-(setq ring-bell-function 'ignore)
-
-(when window-system (global-hl-line-mode t))
-(when window-system (global-prettify-symbols-mode t))
-
-(use-package which-key
-  :ensure t
-  :init
-  (which-key-mode))
-
-(use-package beacon
-  :ensure t
-  :init
-  (beacon-mode 1))
-
-(tool-bar-mode -1)
-(menu-bar-mode -1)
-(scroll-bar-mode -1)
-(blink-cursor-mode -1)
-(setq make-backup-files nil)
-(setq auto-save-default nil)
-(setq auto-save-list-file-name nil)
-
-(setq inhibit-startup-message t)
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
