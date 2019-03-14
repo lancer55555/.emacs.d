@@ -18,6 +18,8 @@
   (package-refresh-contents)
   (package-install 'spacemacs-theme))
 
+(defalias 'yes-or-no-p 'y-or-n-p)
+
 (defvar my-term-shell "/bin/bash")
 (defadvice ansi-term (before force-bash)
   (interactive (list my-term-shell)))
