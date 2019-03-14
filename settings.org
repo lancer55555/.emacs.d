@@ -19,6 +19,11 @@
 #+BEGIN_SRC emacs-lisp
   (global-subword-mode 1)
 #+END_SRC
+** clock
+#+BEGIN_SRC emacs-lisp
+  (setq display-time-24hr-format t)
+  (display-time-mode 1)
+#+END_SRC
 ** electric
 #+BEGIN_SRC emacs-lisp
   (setq electric-pair-pairs '(
@@ -83,6 +88,15 @@
     :ensure t
     :bind ("s-e" . sudo-edit))
 #+END_SRC
+* dashboard
+#+BEGIN_SRC emacs-lisp
+  (use-package dashboard
+    :ensure t
+    :config
+    (dashboard-setup-startup-hook)
+    (setq dashboard-items '((recents . 10)))
+    (setq dashboard-banner-logo-title "Hello YouTube!"))
+#+END_SRC
 * beacon
 ** package beacon
 #+BEGIN_SRC emacs-lisp
@@ -95,6 +109,8 @@
 ** basic config
 #+BEGIN_SRC emacs-lisp
   (setq org-src-window-setup 'current-window)
+  (add-to-list 'org-structure-template-alist
+	       '("el" "#+BEGIN_SRC emacs-lisp\n?\n#+END_SRC"))
 #+END_SRC
 ** Org Bullets
 #+BEGIN_SRC emacs-lisp
@@ -202,6 +218,13 @@
     :ensure t
     :init (rainbow-mode 1))
 #+END_SRC
+** rainbow delimiters
+#+BEGIN_SRC emacs-lisp
+  (use-package rainbow-delimiters
+    :ensure t
+    :init
+    (rainbow-delimiters-mode 1))
+#+END_SRC
 * switch-window
 #+BEGIN_SRC emacs-lisp
   (use-package switch-window
@@ -231,4 +254,11 @@
     (balance-windows)
     (other-window 1))
   (global-set-key (kbd "C-x 3") 'split-and-follow-vertically)
+#+END_SRC
+* auto completion
+#+BEGIN_SRC emacs-lisp
+  (use-package company
+    :ensure t
+    :init
+    (add-hook 'after-init-hook 'global-company-mode))
 #+END_SRC
