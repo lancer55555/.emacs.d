@@ -32,8 +32,7 @@
 (setq ring-bell-function 'ignore)
 
 (when window-system (global-hl-line-mode t))
-
-(global-prettify-symbols-mode t)
+(when window-system (global-prettify-symbols-mode t))
 
 (use-package which-key
 	     :ensure t
