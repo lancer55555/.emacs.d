@@ -31,6 +31,8 @@
 
 (setq ring-bell-function 'ignore)
 
+(global-hl-line-mode t)
+
 (use-package which-key
 	     :ensure t
 	     :init
