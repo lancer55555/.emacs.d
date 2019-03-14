@@ -89,3 +89,11 @@
     (ido-vertical-mode 1))
   (setq ido-vertical-define-keys 'C-n-and-C-p-only)
 #+END_SRC
+** smex
+#+BEGIN_SRC emacs-lisp
+  (use-package smex
+    :ensure t
+    :init (smex-initialize)
+    :bind
+    ("M-x" . smex))
+#+END_SRC
