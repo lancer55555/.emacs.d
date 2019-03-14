@@ -1,0 +1,7 @@
+#+STARTUP: overview 
+#+PROPERTY: header-args :comments yes :results silent
+* Terminal
+** Setting default shell to bash
+#+BEGIN_SRC emacs-lisp
+
+#+END_SRC
