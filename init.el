@@ -20,10 +20,7 @@
 
 (defalias 'yes-or-no-p 'y-or-n-p)
 
-(defvar my-term-shell "/bin/bash")
-(defadvice ansi-term (before force-bash)
-  (interactive (list my-term-shell)))
-(ad-activate 'ansi-term)
+(org-babel-load-file (expand-file-name "~/.emacs.d/settings.org"))
 
 (global-set-key (kbd "<s-return>") 'ansi-term)
 
