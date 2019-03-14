@@ -18,6 +18,11 @@
   (package-refresh-contents)
   (package-install 'spacemacs-theme))
 
+(defvar my-term-shell "/bin/bash")
+(defadvice ansi-term (before force-bash)
+  (interactive (list my-term-shell)))
+(ad-activate 'ansi-term)
+
 (use-package which-key
 	     :ensure t
 	     :init
