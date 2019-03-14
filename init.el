@@ -27,6 +27,10 @@
 
 (global-set-key (kbd "<s-return>") 'ansi-term)
 
+(setq scroll-conservatively 100)
+
+(setq ring-bell-function 'ignore)
+
 (use-package which-key
 	     :ensure t
 	     :init
