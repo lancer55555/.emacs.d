@@ -1,0 +1,27 @@
+;;; -*- coding: utf-8 -*-
+
+;; ----- ido-last-directory-list -----
+(
+ ("/home/klone/" . ".emacs.d/")
+)
+
+;; ----- ido-work-directory-list -----
+(
+ "/home/klone/.emacs.d/"
+)
+
+;; ----- ido-work-file-list -----
+(
+ "init.el"
+ "settings.org"
+)
+
+;; ----- ido-dir-file-cache -----
+(
+ ("/home/klone/.emacs.d/" (23690 10994 982689 900000) "init.el" "settings.el" "../" "settings.org" ".git/" "./" "auto-save-list/" ".gitignore" "elpa/" "README.md")
+
+ ("/home/klone/" (23689 62428 979378 523000) ".bash_logout" ".profile" ".ssh/" ".dmrc" ".emacs.d/" ".xsession-errors.old" ".bash_profile" "projects/" ".local/" ".bash_history" ".icons/" "../" ".xsession-errors" "builds/" ".cache/" ".rustup/" ".gnupg/" "./" ".gitconfig" ".ICEauthority" "Desktop/" ".Xauthority" ".pki/" ".themes/" ".esd_auth" ".config/" ".bashrc" ".xinitrc" ".cargo/" "Downloads/" ".multirust/" ".viminfo")
+)
+
+;; ----- ido-unc-hosts-cache -----
+t
