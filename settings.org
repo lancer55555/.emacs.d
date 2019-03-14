@@ -1,7 +1,7 @@
 #+STARTUP: overview 
 #+PROPERTY: header-args :comments yes :results silent
 * Minor settings
-** no gui elements
+** no gui elements 
 #+BEGIN_SRC emacs-lisp
   (tool-bar-mode -1)
   (menu-bar-mode -1)
@@ -9,6 +9,18 @@
   (blink-cursor-mode -1)
 
   (setq inhibit-startup-message t)
+#+END_SRC
+** subword
+#+BEGIN_SRC emacs-lisp
+  (global-subword-mode 1)
+#+END_SRC
+** electric
+#+BEGIN_SRC emacs-lisp
+  (setq electric-pair-pairs '(
+			      (?\( . ?\))
+			      (?\[ . ?\])
+			      ))
+  (electric-pair-mode t)
 #+END_SRC
 ** no backups
 #+BEGIN_SRC emacs-lisp
@@ -54,6 +66,18 @@
     :init
     (which-key-mode))
 #+END_SRC
+* hungry-delete
+#+BEGIN_SRC emacs-lisp
+  (use-package hungry-delete
+    :ensure t
+    :config (global-hungry-delete-mode))
+#+END_SRC
+* sudo edit
+#+BEGIN_SRC emacs-lisp
+  (use-package sudo-edit
+    :ensure t
+    :bind ("s-e" . sudo-edit))
+#+END_SRC
 * beacon
 ** package beacon
 #+BEGIN_SRC emacs-lisp
@@ -63,6 +87,10 @@
     (beacon-mode 1))
 #+END_SRC
 * Org
+** basic config
+#+BEGIN_SRC emacs-lisp
+  (setq org-src-window-setup 'current-window)
+#+END_SRC
 ** Org Bullets
 #+BEGIN_SRC emacs-lisp
   (use-package org-bullets
@@ -107,12 +135,21 @@
 #+BEGIN_SRC emacs-lisp
   (setq ibuffer-expert t)
 #+END_SRC
-* avy
+* avy 
 #+BEGIN_SRC emacs-lisp
   (use-package avy
     :ensure t
     :bind
     ("M-s" . avy-goto-char))
+#+END_SRC
+* convenient function
+** kill-whole-word
+#+BEGIN_SRC emacs-lisp
+  (defun kill-whole-word ()
+    (interactive)
+    (backward-word)
+    (kill-word 1))
+  (global-set-key (kbd "C-c w w") 'kill-whole-word)
 #+END_SRC
 * config edit/reload
 ** edit
