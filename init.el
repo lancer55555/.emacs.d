@@ -31,7 +31,7 @@
     ("bffa9739ce0752a37d9b1eee78fc00ba159748f50dc328af4be661484848e476" default)))
  '(package-selected-packages
    (quote
-    (company rainbow-delimiters sudo-edit hungry-delete switch-window rainbow-mode avy beacon which-key spacemacs-theme use-package))))
+    (company-shell company-lua slime-company slime company-jedi company-irony company-c-headers flycheck-clang-analyzer flycheck yasnippet-snippets yasnippet linum-relative swiper ivy company rainbow-delimiters sudo-edit hungry-delete switch-window rainbow-mode avy beacon which-key spacemacs-theme use-package))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.

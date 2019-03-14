@@ -15,6 +15,14 @@
 
   (setq inhibit-startup-message t)
 #+END_SRC
+** Set UTF-8 encoding
+#+BEGIN_SRC emacs-lisp
+  (setq locale-coding-system 'utf-8)
+  (set-terminal-coding-system 'utf-8)
+  (set-keyboard-coding-system 'utf-8)
+  (set-selection-coding-system 'utf-8)
+  (prefer-coding-system 'utf-8)
+#+END_SRC
 ** subword
 #+BEGIN_SRC emacs-lisp
   (global-subword-mode 1)
@@ -52,7 +60,7 @@
 #+END_SRC
 ** line highlight
 #+BEGIN_SRC emacs-lisp
-  (when window-system (global-hl-line-mode t))
+  (when window-system (add-hook 'prog-mode-hook 'hl-line-mode))
 #+END_SRC
 ** better scrolling
 #+BEGIN_SRC emacs-lisp
@@ -75,6 +83,25 @@
     :ensure t
     :init
     (which-key-mode))
+#+END_SRC
+* ivy
+#+BEGIN_SRC emacs-lisp
+  (use-package ivy
+    :ensure t)
+#+END_SRC
+* swiper search default
+#+BEGIN_SRC emacs-lisp
+  (use-package swiper
+    :ensure t
+    :bind ("C-s" . 'swiper))
+#+END_SRC
+* line numbers and programming
+#+BEGIN_SRC emacs-lisp
+  (use-package linum-relative
+    :ensure t
+    :config
+      (setq linum-relative-current-symbol "")
+      (add-hook 'prog-mode-hook 'linum-relative-mode))
 #+END_SRC
 * hungry-delete
 #+BEGIN_SRC emacs-lisp
@@ -250,6 +277,180 @@
 #+BEGIN_SRC emacs-lisp
   (use-package company
     :ensure t
+    :config
+    (setq company-idle-delay 0)
+    (setq company-minimum-prefix-length 3))
+
+  (with-eval-after-load 'company
+    (define-key company-active-map (kbd "M-n") nil)
+    (define-key company-active-map (kbd "M-p") nil)
+    (define-key company-active-map (kbd "C-n") #'company-select-next)
+    (define-key company-active-map (kbd "C-p") #'company-select-previous)
+    (define-key company-active-map (kbd "SPC") #'company-abort))
+#+END_SRC
+* Programming
+** yasnippet
+#+BEGIN_SRC emacs-lisp
+  (use-package yasnippet
+    :ensure t
+    :config
+      (use-package yasnippet-snippets
+	:ensure t)
+      (yas-reload-all))
+#+END_SRC
+** flycheck
+#+BEGIN_SRC emacs-lisp
+  (use-package flycheck
+    :ensure t)
+#+END_SRC
+** specific language
+*** C/C++
+yasnippet
+#+BEGIN_SRC emacs-lisp
+  (add-hook 'c++-mode-hook 'yas-minor-mode)
+  (add-hook 'c-mode-hook 'yas-minor-mode)
+#+END_SRC
+flycheck
+#+BEGIN_SRC emacs-lisp
+  (use-package flycheck-clang-analyzer
+    :ensure t
+    :config
+    (with-eval-after-load 'flycheck
+      (require 'flycheck-clang-analyzer)
+       (flycheck-clang-analyzer-setup)))
+#+END_SRC
+company
+#+BEGIN_SRC emacs-lisp
+  (with-eval-after-load 'company
+    (add-hook 'c++-mode-hook 'company-mode)
+    (add-hook 'c-mode-hook 'company-mode))
+
+  (use-package company-c-headers
+    :ensure t)
+
+  (use-package company-irony
+    :ensure t
+    :config
+    (setq company-backends '((company-c-headers
+			      company-dabbrev-code
+			      company-irony))))
+
+  (use-package irony
+    :ensure t
+    :config
+    (add-hook 'c++-mode-hook 'irony-mode)
+    (add-hook 'c-mode-hook 'irony-mode)
+    (add-hook 'irony-mode-hook 'irony-cdb-autosetup-compile-options))
+#+END_SRC
+*** python
+yasnippet
+#+BEGIN_SRC emacs-lisp
+  (add-hook 'python-mode-hook 'yas-minor-mode)
+#+END_SRC
+flycheck
+#+BEGIN_SRC emacs-lisp
+  (add-hook 'python-mode-hook 'flycheck-mode)
+#+END_SRC
+company
+#+BEGIN_SRC emacs-lisp
+  (with-eval-after-load 'company
+      (add-hook 'python-mode-hook 'company-mode))
+
+  (use-package company-jedi
+    :ensure t
+    :config
+      (require 'company)
+      (add-to-list 'company-backends 'company-jedi))
+
+  (defun python-mode-company-init ()
+    (setq-local company-backends '((company-jedi
+				    company-etags
+				    company-dabbrev-code))))
+
+  (use-package company-jedi
+    :ensure t
+    :config
+      (require 'company)
+      (add-hook 'python-mode-hook 'python-mode-company-init))
+#+END_SRC
+*** emacs-lisp
+eldoc
+#+BEGIN_SRC emacs-lisp
+  (add-hook 'emacs-lisp-mode-hook 'eldoc-mode)
+#+END_SRC
+yasnippet
+#+BEGIN_SRC emacs-lisp
+  (add-hook 'emacs-lisp-mode-hook 'yas-minor-mode)
+#+END_SRC
+company
+#+BEGIN_SRC emacs-lisp
+  (add-hook 'emacs-lisp-mode-hook 'company-mode)
+
+  (use-package slime
+    :ensure t
+    :config
+    (setq inferior-lisp-program "/usr/bin/sbcl")
+    (setq slime-contribs '(slime-fancy)))
+
+  (use-package slime-company
+    :ensure t
     :init
-    (add-hook 'after-init-hook 'global-company-mode))
+      (require 'company)
+      (slime-setup '(slime-fancy slime-company)))
+#+END_SRC
+*** lua
+yasnippet
+#+BEGIN_SRC emacs-lisp
+  (add-hook 'lua-mode-hook 'yas-minor-mode)
+#+END_SRC
+flycheck
+#+BEGIN_SRC emacs-lisp
+  (add-hook 'lua-mode-hook 'flycheck-mode)
+#+END_SRC
+company
+#+BEGIN_SRC emacs-lisp
+  (add-hook 'lua-mode-hook 'company-mode)
+
+  (defun custom-lua-repl-bindings ()
+    (local-set-key (kbd "C-c C-s") 'lua-show-process-buffer)
+    (local-set-key (kbd "C-c C-h") 'lua-hide-process-buffer))
+
+  (defun lua-mode-company-init ()
+    (setq-local company-backends '((company-lua
+				    company-etags
+				    company-dabbrev-code))))
+
+  (use-package company-lua
+    :ensure t
+    :config
+      (require 'company)
+      (setq lua-indent-level 4)
+      (setq lua-indent-string-contents t)
+      (add-hook 'lua-mode-hook 'custom-lua-repl-bindings)
+      (add-hook 'lua-mode-hook 'lua-mode-company-init))
+#+END_SRC
+*** bash
+yasnippet
+#+BEGIN_SRC emacs-lisp
+  (add-hook 'shell-mode-hook 'yas-minor-mode)
+#+END_SRC
+flycheck
+#+BEGIN_SRC emacs-lisp
+  (add-hook 'shell-mode-hook 'flycheck-mode)
+#+END_SRC
+company
+#+BEGIN_SRC emacs-lisp
+  (add-hook 'shell-mode-hook 'company-mode)
+
+  (defun shell-mode-company-init ()
+    (setq-local company-backends '((company-shell
+				    company-shell-env
+				    company-etags
+				    company-dabbrev-code))))
+
+  (use-package company-shell
+    :ensure t
+    :config
+      (require 'company)
+      (add-hook 'shell-mode-hook 'shell-mode-company-init))
 #+END_SRC
