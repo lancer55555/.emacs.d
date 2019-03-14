@@ -2,19 +2,10 @@
 *.eld
 *.dat
 *ido*
-*.html
 *.pdf
 *.tex
 
-eshell
-network-security.data
-.python-environments
-irony
-dmenu-items
-config.el
-recentf
+settings.el
 smex-items
-tramp
-emms
 auto-save-list
 elpa
