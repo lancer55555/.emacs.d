@@ -25,6 +25,8 @@
   (interactive (list my-term-shell)))
 (ad-activate 'ansi-term)
 
+(global-set-key (kbd "<s-return>") 'ansi-term)
+
 (use-package which-key
 	     :ensure t
 	     :init
