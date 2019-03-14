@@ -88,15 +88,6 @@
     :ensure t
     :bind ("s-e" . sudo-edit))
 #+END_SRC
-* dashboard
-#+BEGIN_SRC emacs-lisp
-  (use-package dashboard
-    :ensure t
-    :config
-    (dashboard-setup-startup-hook)
-    (setq dashboard-items '((recents . 10)))
-    (setq dashboard-banner-logo-title "Hello YouTube!"))
-#+END_SRC
 * beacon
 ** package beacon
 #+BEGIN_SRC emacs-lisp
