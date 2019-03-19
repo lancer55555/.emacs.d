@@ -66,6 +66,11 @@
 #+BEGIN_SRC emacs-lisp
   (setq scroll-conservatively 100)
 #+END_SRC
+** start window size
+#+BEGIN_SRC emacs-lisp
+  (when (window-system)
+      (set-frame-size (selected-frame) 100 50))
+#+END_SRC
 * Terminal
 ** Setting default shell to bash
 #+BEGIN_SRC emacs-lisp
